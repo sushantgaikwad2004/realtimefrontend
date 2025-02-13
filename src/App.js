@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CodeEditor from "./CodeEditor";
 import ChatBox from "./ChatBox";
 import UsersList from "./UsersList";
+import Footer from "./Footer";
 import io from "socket.io-client";
 import "./App.css";
 
@@ -46,14 +47,14 @@ const App = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
-            className="username-input"
+            className="input-field"
           />
           <input
             type="text"
             value={passcode}
             onChange={(e) => setPasscode(e.target.value)}
             placeholder="Room Passcode"
-            className="passcode-input"
+            className="input-field"
           />
           <button onClick={joinRoom} className="join-button">
             Join Room
@@ -72,6 +73,8 @@ const App = () => {
           </div>
         </div>
       )}
+      {/* Conditionally render Footer */}
+      {!isRoomJoined && <Footer />}
     </div>
   );
 };
