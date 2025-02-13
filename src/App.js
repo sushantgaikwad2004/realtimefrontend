@@ -1,25 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import CodeEditor from "./CodeEditor";
+import ChatBox from "./ChatBox";
+import UsersList from "./UsersList";
+import io from "socket.io-client";
+import "./App.css";
 
-function App() {
+const socket = io("https://realltimecollab.onrender.com", {
+  transports: ["websocket"],
+  withCredentials: true,
+});
+
+const App = () => {
+  const [username, setUsername] = useState("");
+  const [passcode, setPasscode] = useState("");
+  const [isRoomJoined, setIsRoomJoined] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    socket.on("userList", (updatedUsers) => {
+      setUsers(updatedUsers);
+    });
+
+    return () => {
+      socket.off("userList");
+    };
+  }, []);
+
+  const joinRoom = () => {
+    if (username.trim() && passcode.trim()) {
+      socket.emit("joinRoom", { passcode, username });
+      setIsRoomJoined(true);
+    } else {
+      alert("Please enter both username and passcode");
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <h1>Real-Time Collaboration Platform</h1>
+      {!isRoomJoined ? (
+        <div className="join-room">
+          <h2>Join/Create Room</h2>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+            className="username-input"
+          />
+          <input
+            type="text"
+            value={passcode}
+            onChange={(e) => setPasscode(e.target.value)}
+            placeholder="Room Passcode"
+            className="passcode-input"
+          />
+          <button onClick={joinRoom} className="join-button">
+            Join Room
+          </button>
+        </div>
+      ) : (
+        <div className="main-container">
+          <div className="sidebar">
+            <UsersList users={users} />
+          </div>
+          <div className="editor-section">
+            <CodeEditor passcode={passcode} socket={socket} />
+          </div>
+          <div className="chat-section">
+            <ChatBox passcode={passcode} socket={socket} username={username} />
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
