@@ -8,16 +8,16 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="social-icons">
-          <a href="https://www.instagram.com/sushant__1106?igsh=ODl6NndyaXFkam9x" target="_blank" rel="noopener noreferrer">
+          <a href="" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faInstagram} size="2x" />
           </a>
-          <a href="https://github.com/sushantgaikwad2004" target="_blank" rel="noopener noreferrer">
+          <a href="" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faGithub} size="2x" /> {/* Fixed faGithub */}
           </a>
-          <a href="https://www.linkedin.com/in/sushant-gaikwad-4719032b2/" target="_blank" rel="noopener noreferrer">
+          <a href="" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faLinkedin} size="2x" /> {/* Fixed faLinkedin */}
           </a>
-          <a href="https://sushant-portfoliog.netlify.app/" target="_blank" rel="noopener noreferrer">
+          <a href="" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faGlobe} size="2x" />
           </a>
         </div>
