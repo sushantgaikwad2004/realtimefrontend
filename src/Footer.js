@@ -21,8 +21,8 @@ const Footer = () => {
             <FontAwesomeIcon icon={faGlobe} size="2x" />
           </a>
         </div>
-        <p>Created By Sushant</p>
-        <p>sushantgaikwad287@gmail.com</p>
+        <p>Created By Ankita</p>
+       {/* <p>sushantgaikwad287@gmail.com</p> */}
       </div>
     </footer>
   );
